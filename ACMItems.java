@@ -25,21 +25,41 @@ import io.github.thebusybiscuit.slimefun4.utils.HeadTexture;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import io.github.thebusybiscuit.slimefun4.utils.itemstack.ColoredFireworkStar;
 
+public class ACMItems extends JavaPlugin implements SlimefunAddon {
 
-public class ACMItems {
+   private int researchId = 3300;
+    private ItemGroup itemGroup;
+
+    @Override
+    public void onEnable() {
+        Config cfg = new Config(this);
+
+        if (cfg.getBoolean("options.auto-update") && getDescription().getVersion().startsWith("DEV - ")) {
+            new GitHubBuildsUpdater(this, getFile(), "blackture/ACMCE/master").start();
+        }
+
+        new Metrics(this, 6469);
+
+        itemGroup = new ItemGroup(new NamespacedKey(this, "items"), new CustomItemStack(Material.DIAMOND_SWORD, "&6BlackTure"), 1);
     
-    public static final SlimefunItemStack DAMASCUS_STEEL_HELMET = new SlimefunItemStack("DAMASCUS_STEEL_HELMET", Material.IRON_HELMET, "&7Damascus Steel Helmet"); public static final SlimefunItemStack DAMASCUS_STEEL_CHESTPLATE = new SlimefunItemStack("DAMASCUS_STEEL_CHESTPLATE", Material.IRON_CHESTPLATE, "&7Damascus Steel Chestplate"); public static final SlimefunItemStack DAMASCUS_STEEL_LEGGINGS = new SlimefunItemStack("DAMASCUS_STEEL_LEGGINGS", Material.IRON_LEGGINGS, "&7Damascus Steel Leggings"); public static final SlimefunItemStack DAMASCUS_STEEL_BOOTS = new SlimefunItemStack("DAMASCUS_STEEL_BOOTS", Material.IRON_BOOTS, "&7Damascus Steel Boots");
-    
+    public static final SlimefunItemStack HYPER_HELMET = new SlimefunItemStack("HYPER_HELMET", Material.IRON_HELMET, "&7Damascus Steel Helmet");
+    public static final SlimefunItemStack HYPER_CHESTPLATE = new SlimefunItemStack("HYPER_CHESTPLATE", Material.IRON_CHESTPLATE, "&7Damascus Steel Chestplate");
+    public static final SlimefunItemStack HYPER_LEGGINGS = new SlimefunItemStack("HYPER_LEGGINGS", Material.IRON_LEGGINGS, "&7Damascus Steel Leggings");
+    public static final SlimefunItemStack HYPER_BOOTS = new SlimefunItemStack("HYPER_BOOTS", Material.IRON_BOOTS, "&7Damascus Steel Boots");
+
         Map<Enchantment, Integer> damascusEnchs = new HashMap<>();
-    damascusEnchs.put(Enchantment.DURABILITY, 5);
-    damascusEnchs.put(Enchantment.PROTECTION_ENVIRONMENTAL, 5);
+    damascusEnchs.put(Enchantment.DURABILITY, 20);
+    damascusEnchs.put(Enchantment.PROTECTION_ENVIRONMENTAL, 40);
 
-    DAMASCUS_STEEL_HELMET.addUnsafeEnchantments(damascusEnchs);
-    DAMASCUS_STEEL_CHESTPLATE.addUnsafeEnchantments(damascusEnchs);
-    DAMASCUS_STEEL_LEGGINGS.addUnsafeEnchantments(damascusEnchs);
-    DAMASCUS_STEEL_BOOTS.addUnsafeEnchantments(damascusEnchs);
+    HYPER_HELMET.addUnsafeEnchantments(damascusEnchs);
+    HYPER_CHESTPLATE.addUnsafeEnchantments(damascusEnchs);
+    HYPER_LEGGINGS.addUnsafeEnchantments(damascusEnchs);
+    HYPER_BOOTS.addUnsafeEnchantments(damascusEnchs);
     
-    public static final SlimefunItemStack COBALT_PICKAXE = new SlimefunItemStack("COBALT_PICKAXE", Material.IRON_PICKAXE, "&9Cobalt Pickaxe");
+    public static final SlimefunItemStack HYPER_PICKAXE = new SlimefunItemStack("HYPER_PICKAXE", Material.IRON_PICKAXE, "&9Cobalt Pickaxe");
 
-    static { COBALT_PICKAXE.addUnsafeEnchantment(Enchantment.DURABILITY, 10); COBALT_PICKAXE.addUnsafeEnchantment(Enchantment.DIG_SPEED, 6); }
+    static {
+        HYPER_PICKAXE.addUnsafeEnchantment(Enchantment.DURABILITY, 80);
+        HYPER_PICKAXE.addUnsafeEnchantment(Enchantment.DIG_SPEED, 40);
+    }
 }
